@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import SelectListDays from "../components/SelectListDays";
+import moment from "moment";
 import { Text, TextInput, Button, List } from "react-native-paper";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import {
@@ -19,6 +21,10 @@ export default function Settings({ navigation }) {
   const [reload, setReload] = useState(false);
   const [demarrAccordianValue, setDemarrAccordianValue] = useState(false);
   const [draiganAccordianValue, setDraiganAccordianValue] = useState(false);
+  const [selected, setSelected] = useState("");
+
+  // For Dates
+  console.log(moment().format("dddd"));
 
   async function getDatas() {
     const draiganData = await getDataDraigan();
@@ -75,8 +81,8 @@ export default function Settings({ navigation }) {
       dataDemarr.tasks.splice(index, 1);
       storeDataDemarr(dataDemarr);
     } else if (name === "draigan") {
-      data.Draigan.tasks.splice(index, 1);
       storeDataDraigan(dataDemarr);
+      data.Draigan.tasks.splice(index, 1);
     }
     setReload((prev) => !prev);
   }
@@ -112,6 +118,7 @@ export default function Settings({ navigation }) {
             >
               Add New Task
             </Button>
+            <SelectListDays setSelected={setSelected} />
             <Text variant="headlineSmall">Tasks</Text>
             {dataDemarr.tasks.map((item, index) => {
               return (
