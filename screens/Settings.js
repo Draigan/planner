@@ -9,6 +9,7 @@ import {
   storeDataDraigan,
   getDataDraigan,
 } from "../async-storage/helpers";
+import ChoresSettingsDemarr from "../components/ChoresSettingsDemarr";
 
 export default function Settings({ navigation }) {
   const [textDraigan, setTextDraigan] = useState("");
@@ -22,6 +23,7 @@ export default function Settings({ navigation }) {
   const [demarrAccordianValue, setDemarrAccordianValue] = useState(false);
   const [draiganAccordianValue, setDraiganAccordianValue] = useState(false);
   const [selected, setSelected] = useState("");
+  const [selectedDemarr, setSelectedDemarr] = useState("");
 
   // For Dates
   console.log(moment().format("dddd"));
@@ -100,6 +102,7 @@ export default function Settings({ navigation }) {
             title="Demarr"
             id="1"
           >
+            <Text variant="displaySmall">Tasks</Text>
             <TextInput
               label="Task Name"
               value={textDemarr}
@@ -118,8 +121,7 @@ export default function Settings({ navigation }) {
             >
               Add New Task
             </Button>
-            <SelectListDays setSelected={setSelected} />
-            <Text variant="headlineSmall">Tasks</Text>
+            <Text variant="headlineSmall">Current Tasks</Text>
             {dataDemarr.tasks.map((item, index) => {
               return (
                 <TouchableOpacity
@@ -134,6 +136,14 @@ export default function Settings({ navigation }) {
                 </TouchableOpacity>
               );
             })}
+            <ChoresSettingsDemarr
+              textDemarr={textDemarr}
+              dataDemarr={dataDemarr}
+              setSelectedDemarr={setSelectedDemarr}
+              storeDataDemarr={storeDataDemarr}
+              setReload={setReload}
+            />
+            <Text variant="displaySmall">Jackpot Settings</Text>
             <TextInput
               keyboardType="numeric"
               label="Required Points For Jackpot"

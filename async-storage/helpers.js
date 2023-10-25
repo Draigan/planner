@@ -56,6 +56,7 @@ storeDataDraigan({
     { name: "Out of bed by 8", points: 3, checked: false },
   ],
   requiredPoints: 10,
+  chores: [[], [], [], [], [], [], []],
 });
 
 storeDataDemarr({
@@ -74,6 +75,7 @@ storeDataDemarr({
     { name: "Out of bed by 8", points: 3, checked: false },
   ],
   requiredPoints: 10,
+  chores: [["Water Plants", "Eat food"], [], [], [], [], [], []],
 });
 
 export { storeDataDraigan, storeDataDemarr, getDataDraigan, getDataDemarr };

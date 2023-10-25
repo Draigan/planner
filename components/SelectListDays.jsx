@@ -1,20 +1,18 @@
 import { SelectList } from "react-native-dropdown-select-list";
-import { useState } from "react";
 
 const SelectListDays = (props) => {
   const data = [
-    { key: "1", value: "Mobiles", disabled: true },
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "4", value: "Computers", disabled: true },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
+    { key: "1", value: "Sunday", disabled: true },
+    { key: "2", value: "Monday" },
+    { key: "3", value: "Tuesday" },
+    { key: "4", value: "Thursday", disabled: true },
+    { key: "5", value: "Friday" },
+    { key: "6", value: "Saturday" },
   ];
 
   return (
     <SelectList
-      setSelected={(val) => props.setSelected(val)}
+      setSelected={(val) => props.setSelectedDemarr(val)}
       data={data}
       save="value"
     />
