@@ -25,9 +25,6 @@ export default function Settings({ navigation }) {
   const [selected, setSelected] = useState("");
   const [selectedDemarr, setSelectedDemarr] = useState("");
 
-  // For Dates
-  console.log(moment().format("dddd"));
-
   async function getDatas() {
     const draiganData = await getDataDraigan();
     setDataDraigan(draiganData);

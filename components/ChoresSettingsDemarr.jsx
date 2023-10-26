@@ -12,12 +12,10 @@ const ChoresSettingsDemarr = ({
   storeDataDemarr,
 } = props) => {
   function deleteItemChore(indexChore, indexDay) {
-    // dataDemarr.chores[index].splice(index, 1);
-    // dataDemarr.chores[indexDay].splice(indexChore, 1);
-    console.log(dataDemarr.chores[indexChore][indexDay]);
+    // dataDemarr.chores[indexChore].splice(indexDay, 1);
     // console.log(dataDemarr.chores);
     // storeDataDemarr(dataDemarr);
-    setReload((prev) => !prev);
+    // setReload((prev) => !prev);
   }
   const choreArrayMap = {
     0: "Sunday",
@@ -50,7 +48,7 @@ const ChoresSettingsDemarr = ({
         return (
           <View key={index + 7}>
             <Text variant="headlineSmall">{choreArrayMap[index]}</Text>
-            {dataDemarr.chores[index].map((dayItem, indexDay) => {
+            {dataDemarr.chores[index].list.map((dayItem, indexDay) => {
               return (
                 <TouchableOpacity
                   key={Math.random()}

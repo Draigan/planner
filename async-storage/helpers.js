@@ -56,7 +56,18 @@ storeDataDraigan({
     { name: "Out of bed by 8", points: 3, checked: false },
   ],
   requiredPoints: 10,
-  chores: [[], [], [], [], [], [], []],
+  chores: [
+    { name: "Sunday", list: ["Water Plants", "Eat food"] },
+    { name: "Monday", list: ["do stuff", "eat health", "love plants"] },
+    { name: "Tuesday", list: ["eat cheese", "run", "bike", "swim"] },
+    { name: "WednesDay", list: ["laze around", "do stuff"] },
+    { name: "Thursday", list: ["Try I guess", "hello world"] },
+    {
+      name: "Friday",
+      list: ["123", "forty fivbe thousand", "doing stuff again", "run"],
+    },
+    { name: "Saturday", list: ["nothing day"] },
+  ],
 });
 
 storeDataDemarr({
@@ -75,7 +86,18 @@ storeDataDemarr({
     { name: "Out of bed by 8", points: 3, checked: false },
   ],
   requiredPoints: 10,
-  chores: [["Water Plants", "Eat food"], [], [], [], [], [], []],
+  chores: [
+    { name: "Sunday", list: ["Water Plants", "Eat food"] },
+    { name: "Monday", list: ["do stuff", "eat health", "love plants"] },
+    { name: "Tuesday", list: ["eat cheese", "run", "bike", "swim"] },
+    { name: "WednesDay", list: ["laze around", "do stuff"] },
+    { name: "Thursday", list: ["Try I guess", "hello world"] },
+    {
+      name: "Friday",
+      list: ["123", "forty fivbe thousand", "doing stuff again", "run"],
+    },
+    { name: "Saturday", list: ["nothing day"] },
+  ],
 });
 
 export { storeDataDraigan, storeDataDemarr, getDataDraigan, getDataDemarr };

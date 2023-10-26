@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Draigan from "../screens/Draigan.js";
-import Demarr from "../screens/Demarr.js";
-import Settings from "../screens/Settings.js";
+import Draigan from "../screens/Draigan.jsx";
+import Demarr from "../screens/Demarr.jsx";
+import Settings from "../screens/Settings.jsx";
 
 const Tab = createBottomTabNavigator();
 

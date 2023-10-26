@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getDataDemarr, storeDataDemarr } from "../async-storage/helpers.js";
 import { Checkbox, Button, DataTable } from "react-native-paper";
 import Jackpot from "./Jackpot.jsx";
+import moment from "moment";
 
 export default function Demarr({ navigation }) {
   const [data, setData] = useState(null);
@@ -10,6 +11,9 @@ export default function Demarr({ navigation }) {
   const [points, setPoints] = useState(0);
   const [reload, setReload] = useState(false);
   const [requiredPoints, setRequiredPoints] = useState();
+  const [choresCompleted, setChoresCompleted] = useState(0);
+  const [choresRequired, setChoresRequired] = useState(null);
+  const day = moment().format("dddd");
 
   //Retrieve from sql-lite
   async function getData() {
@@ -17,9 +21,10 @@ export default function Demarr({ navigation }) {
     setData(data);
     pointChecker(data);
     setRequiredPoints(data.requiredPoints);
+    setChoresRequired(data.chores.length);
+    console.log(data.chores.length);
   }
 
-  // On Focus
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       getData();
@@ -72,6 +77,36 @@ export default function Demarr({ navigation }) {
               <DataTable.Row key={index}>
                 <DataTable.Cell>{item.name}</DataTable.Cell>
                 <DataTable.Cell>{item.points}</DataTable.Cell>
+                <DataTable.Cell>
+                  <Checkbox
+                    status={item.checked ? "checked" : "unchecked"}
+                    onPress={() => {
+                      item.checked = !item.checked;
+                      item.checked
+                        ? setPoints((prevPoints) => prevPoints + item.points)
+                        : setPoints((prevPoints) => prevPoints - item.points);
+                      pointChecker(data);
+                      storeDataDemarr(data);
+                    }}
+                  />
+                </DataTable.Cell>
+              </DataTable.Row>
+            ))}
+          </DataTable>
+          <DataTable>
+            <DataTable.Header>
+              <DataTable.Title sortDirection="descending">
+                Chore
+              </DataTable.Title>
+              <DataTable.Title></DataTable.Title>
+              <DataTable.Title>
+                {points} of {choresRequired}
+              </DataTable.Title>
+            </DataTable.Header>
+            {data.tasks.map((item, index) => (
+              <DataTable.Row key={index}>
+                <DataTable.Cell>{item.name}</DataTable.Cell>
+                <DataTable.Cell></DataTable.Cell>
                 <DataTable.Cell>
                   <Checkbox
                     status={item.checked ? "checked" : "unchecked"}
