@@ -11,18 +11,23 @@ export default function Demarr({ navigation }) {
   const [points, setPoints] = useState(0);
   const [reload, setReload] = useState(false);
   const [requiredPoints, setRequiredPoints] = useState();
-  const [choresCompleted, setChoresCompleted] = useState(0);
+  const [chorePoints, setChorePoints] = useState(0);
   const [choresRequired, setChoresRequired] = useState(null);
-  const day = moment().format("dddd");
+  const [newDay, setNewDay] = useState(false);
+  const [yesterday, setYesterday] = useState("");
 
+  const day = moment().format("dddd");
   //Retrieve from sql-lite
   async function getData() {
     const data = await getDataDemarr();
     setData(data);
     pointChecker(data);
+    chorePointChecker(data);
     setRequiredPoints(data.requiredPoints);
-    setChoresRequired(data.chores.length);
-    console.log(data.chores.length);
+    setChoresRequired(
+      data.chores.find((item) => day === item.name).list.length,
+    );
+    setReload((prev) => !reload);
   }
 
   useEffect(() => {
@@ -39,16 +44,43 @@ export default function Demarr({ navigation }) {
     getData();
   }, []);
 
+  function checkForNewDay() {
+    if (day != yesterday) {
+      setYesterday(day);
+    }
+  }
   function resetChecked() {
     data.tasks.forEach((item) => {
       item.checked = false;
-      console.log(item.checked);
     });
-    console.log(data);
+    data.chores.forEach((item) => {
+      item.list.forEach((listItem) => (listItem.checked = false));
+      console.log(item);
+    });
+    setChorePoints(0);
     storeDataDemarr(data);
     setReload((prev) => !prev);
   }
 
+  function isJackpotReady() {
+    if (chorePoints < choresRequired) return;
+    if (points < requiredPoints) return;
+    resetChecked();
+    setPoints(0);
+    navigation.navigate("Jackpot");
+  }
+
+  function chorePointChecker(data) {
+    let points = 0;
+    data.chores
+      .find((item) => day === item.name)
+      .list.forEach((item) => {
+        if (item.checked) {
+          points += 1;
+        }
+      });
+    setChorePoints(points);
+  }
   function pointChecker(data) {
     let points = 0;
     data.tasks.forEach((item) => {
@@ -96,32 +128,35 @@ export default function Demarr({ navigation }) {
           <DataTable>
             <DataTable.Header>
               <DataTable.Title sortDirection="descending">
-                Chore
+                {day}
               </DataTable.Title>
               <DataTable.Title></DataTable.Title>
               <DataTable.Title>
-                {points} of {choresRequired}
+                {chorePoints} of {choresRequired}
               </DataTable.Title>
             </DataTable.Header>
-            {data.tasks.map((item, index) => (
-              <DataTable.Row key={index}>
-                <DataTable.Cell>{item.name}</DataTable.Cell>
-                <DataTable.Cell></DataTable.Cell>
-                <DataTable.Cell>
-                  <Checkbox
-                    status={item.checked ? "checked" : "unchecked"}
-                    onPress={() => {
-                      item.checked = !item.checked;
-                      item.checked
-                        ? setPoints((prevPoints) => prevPoints + item.points)
-                        : setPoints((prevPoints) => prevPoints - item.points);
-                      pointChecker(data);
-                      storeDataDemarr(data);
-                    }}
-                  />
-                </DataTable.Cell>
-              </DataTable.Row>
-            ))}
+            {data.chores
+              .find((item) => day === item.name)
+              .list.map((item, index) => (
+                <DataTable.Row key={index}>
+                  <DataTable.Cell>{item.task}</DataTable.Cell>
+                  <DataTable.Cell></DataTable.Cell>
+                  <DataTable.Cell>
+                    <Checkbox
+                      status={item.checked ? "checked" : "unchecked"}
+                      onPress={() => {
+                        item.checked = !item.checked;
+                        // item.checked
+                        //   ? setChorePoints((prevPoints) => prevPoints + 1)
+                        //   : setChorePoints((prevPoints) => prevPoints - 1);
+                        chorePointChecker(data);
+                        storeDataDemarr(data);
+                        console.log(item.checked);
+                      }}
+                    />
+                  </DataTable.Cell>
+                </DataTable.Row>
+              ))}
           </DataTable>
         </ScrollView>
         <View
@@ -133,15 +168,16 @@ export default function Demarr({ navigation }) {
         >
           <Button
             style={{
-              backgroundColor: points >= requiredPoints ? "red" : "#654EA3",
+              backgroundColor:
+                points >= requiredPoints && chorePoints >= choresRequired
+                  ? "red"
+                  : "#654EA3",
               width: 150,
               margin: 5,
             }}
             mode="contained"
             onPress={() => {
-              resetChecked();
-              setPoints(0);
-              navigation.navigate("Jackpot");
+              isJackpotReady();
             }}
           >
             JACKPOT!

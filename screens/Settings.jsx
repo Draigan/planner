@@ -24,6 +24,7 @@ export default function Settings({ navigation }) {
   const [draiganAccordianValue, setDraiganAccordianValue] = useState(false);
   const [selected, setSelected] = useState("");
   const [selectedDemarr, setSelectedDemarr] = useState("");
+  const [choreTextDemarr, setChoreTextDemarr] = useState("");
 
   async function getDatas() {
     const draiganData = await getDataDraigan();
@@ -118,7 +119,7 @@ export default function Settings({ navigation }) {
             >
               Add New Task
             </Button>
-            <Text variant="headlineSmall">Current Tasks</Text>
+            <Text variant="headlineSmall">Daily Tasks</Text>
             {dataDemarr.tasks.map((item, index) => {
               return (
                 <TouchableOpacity
@@ -134,7 +135,8 @@ export default function Settings({ navigation }) {
               );
             })}
             <ChoresSettingsDemarr
-              textDemarr={textDemarr}
+              choreTextDemarr={choreTextDemarr}
+              setChoreTextDemarr={setChoreTextDemarr}
               dataDemarr={dataDemarr}
               setSelectedDemarr={setSelectedDemarr}
               storeDataDemarr={storeDataDemarr}
