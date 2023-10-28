@@ -177,7 +177,7 @@ export default function Demarr({ navigation }) {
               backgroundColor:
                 points >= requiredPoints && chorePoints >= choresRequired
                   ? "red"
-                  : "#654EA3",
+                  : "black",
               width: 150,
               margin: 5,
             }}

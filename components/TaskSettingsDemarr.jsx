@@ -2,11 +2,8 @@ import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Button, List, Text, TextInput } from "react-native-paper";
 import { uiStyles } from "../css/styles";
-export default function TaskSettingsDemarr({
-  dataDemarr,
-  storeDataDemarr,
-  setReload,
-} = props) {
+import { storeDataDemarr } from "../async-storage/helpers";
+export default function TaskSettingsDemarr({ dataDemarr, setReload } = props) {
   const [textDemarr, setTextDemarr] = useState("");
   const [numberDemarr, setNumberDemarr] = useState(null);
 
@@ -57,7 +54,7 @@ export default function TaskSettingsDemarr({
             <List.Item
               title={item.name}
               description={item.points}
-              left={(props) => <List.Icon {...props} icon="heart" />}
+              left={(props) => <List.Icon {...props} icon="arrow-right" />}
             />
           </TouchableOpacity>
         );

@@ -3,12 +3,8 @@ import { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Button, TextInput, List } from "react-native-paper";
 import SelectListDays from "./SelectListDays";
-
-const ChoresSettingsDemarr = ({
-  dataDemarr,
-  setReload,
-  storeDataDemarr,
-} = props) => {
+import { storeDataDemarr } from "../async-storage/helpers";
+const ChoresSettingsDemarr = ({ dataDemarr, setReload } = props) => {
   const [selectedDemarr, setSelectedDemarr] = useState("");
   const [choreTextDemarr, setChoreTextDemarr] = useState("");
 
@@ -67,7 +63,9 @@ const ChoresSettingsDemarr = ({
                   <List.Item
                     key={index + 100}
                     title={dayItem.task}
-                    left={(props) => <List.Icon {...props} icon="heart" />}
+                    left={(props) => (
+                      <List.Icon {...props} icon="arrow-right" />
+                    )}
                   />
                 </TouchableOpacity>
               );

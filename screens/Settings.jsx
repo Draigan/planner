@@ -1,5 +1,3 @@
-import SelectListDays from "../components/SelectListDays";
-import moment from "moment";
 import { Text, TextInput, Button, List } from "react-native-paper";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import {
@@ -8,25 +6,24 @@ import {
   storeDataDraigan,
   getDataDraigan,
 } from "../async-storage/helpers";
-import ChoresSettingsDemarr from "../components/ChoresSettingsDemarr";
-import TaskSettingsDemarr from "../components/TaskSettingsDemarr";
-import JackpotSettingsDemarr from "../components/JackpotSettingsDemarr";
-import { uiStyles, demarrStyles, draiganStyles } from "../css/styles";
+import { draiganStyles } from "../css/styles";
 import { useState, useEffect } from "react";
+import DemarrSettings from "../components/DemarrSettings";
 
 export default function Settings({ navigation }) {
   // Demarr States
   const [demarrAccordianValue, setDemarrAccordianValue] = useState(false);
-  const [dataDemarr, setDataDemarr] = useState(null);
   const [demarrTaskAccordian, setDemarrTaskAccordian] = useState(false);
   const [demarrChoreAccordian, setDemarrChoreAccordian] = useState(false);
   const [demarrJackpotAccordian, setDemarrJackpotAccordian] = useState(false);
 
   const [textDraigan, setTextDraigan] = useState("");
   const [requiredPointsDraigan, setRequiredPointsDraigan] = useState(null);
-  const [dataDraigan, setDataDraigan] = useState(null);
-  const [reload, setReload] = useState(false);
   const [draiganAccordianValue, setDraiganAccordianValue] = useState(false);
+
+  const [reload, setReload] = useState(false);
+  const [dataDemarr, setDataDemarr] = useState(null);
+  const [dataDraigan, setDataDraigan] = useState(null);
 
   async function getDatas() {
     const draiganData = await getDataDraigan();
@@ -60,66 +57,18 @@ export default function Settings({ navigation }) {
     dataDemarr && (
       <ScrollView>
         <List.Section>
-          <List.Accordion
-            style={demarrStyles.colorPrimary}
-            onPress={() => {
-              setDemarrAccordianValue(!demarrAccordianValue);
-              // If we close the main accordian, close its children
-              if (!demarrAccordianValue) {
-                setDemarrTaskAccordian(false);
-                setDemarrChoreAccordian(false);
-              }
-            }}
-            expanded={demarrAccordianValue}
-            title="Demarr"
-            id="1"
-          >
-            <List.Accordion
-              style={demarrStyles.colorSecondary}
-              onPress={() => {
-                setDemarrTaskAccordian(!demarrTaskAccordian);
-              }}
-              expanded={demarrTaskAccordian}
-              title="Tasks"
-              id="1"
-            >
-              <TaskSettingsDemarr
-                dataDemarr={dataDemarr}
-                storeDataDemarr={storeDataDemarr}
-                setReload={setReload}
-              />
-            </List.Accordion>
-            <List.Accordion
-              style={demarrStyles.colorSecondary}
-              onPress={() => {
-                setDemarrChoreAccordian(!demarrChoreAccordian);
-              }}
-              expanded={demarrChoreAccordian}
-              title="Chores"
-              id="1"
-            >
-              <ChoresSettingsDemarr
-                dataDemarr={dataDemarr}
-                storeDataDemarr={storeDataDemarr}
-                setReload={setReload}
-              />
-            </List.Accordion>
-            <List.Accordion
-              style={demarrStyles.colorSecondary}
-              onPress={() => {
-                setDemarrJackpotAccordian(!demarrJackpotAccordian);
-              }}
-              expanded={demarrJackpotAccordian}
-              title="Jackpot Settings"
-              id="1"
-            >
-              <JackpotSettingsDemarr
-                dataDemarr={dataDemarr}
-                storeDataDemarr={storeDataDemarr}
-                setReload={setReload}
-              />
-            </List.Accordion>
-          </List.Accordion>
+          <DemarrSettings
+            setDemarrAccordianValue={setDemarrAccordianValue}
+            demarrAccordianValue={demarrAccordianValue}
+            demarrTaskAccordian={demarrTaskAccordian}
+            setDemarrTaskAccordian={setDemarrTaskAccordian}
+            setDemarrJackpotAccordian={setDemarrJackpotAccordian}
+            demarrJackpotAccordian={demarrJackpotAccordian}
+            setDemarrChoreAccordian={setDemarrChoreAccordian}
+            demarrChoreAccordian={demarrChoreAccordian}
+            dataDemarr={dataDemarr}
+            setReload={setReload}
+          />
           <List.Accordion
             style={draiganStyles.colorPrimary}
             expanded={draiganAccordianValue}
