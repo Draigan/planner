@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Button, List, Text, TextInput } from "react-native-paper";
+import { uiStyles } from "../css/styles";
 export default function TaskSettingsDemarr({
   dataDemarr,
   storeDataDemarr,
@@ -27,11 +28,13 @@ export default function TaskSettingsDemarr({
   return (
     <>
       <TextInput
+        backgroundColor={uiStyles.colorPrimary}
         label="Task Name"
         value={textDemarr}
         onChangeText={(text) => setTextDemarr(text)}
       />
       <TextInput
+        backgroundColor={uiStyles.colorPrimary}
         keyboardType="numeric"
         label="Points"
         value={numberDemarr}

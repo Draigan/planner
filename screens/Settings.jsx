@@ -11,7 +11,7 @@ import {
 import ChoresSettingsDemarr from "../components/ChoresSettingsDemarr";
 import TaskSettingsDemarr from "../components/TaskSettingsDemarr";
 import JackpotSettingsDemarr from "../components/JackpotSettingsDemarr";
-import { demarrStyles } from "../css/styles";
+import { uiStyles, demarrStyles, draiganStyles } from "../css/styles";
 import { useState, useEffect } from "react";
 
 export default function Settings({ navigation }) {
@@ -61,15 +61,21 @@ export default function Settings({ navigation }) {
       <ScrollView>
         <List.Section>
           <List.Accordion
-            style={demarrStyles.background}
+            style={demarrStyles.colorPrimary}
             onPress={() => {
               setDemarrAccordianValue(!demarrAccordianValue);
+              // If we close the main accordian, close its children
+              if (!demarrAccordianValue) {
+                setDemarrTaskAccordian(false);
+                setDemarrChoreAccordian(false);
+              }
             }}
             expanded={demarrAccordianValue}
             title="Demarr"
             id="1"
           >
             <List.Accordion
+              style={demarrStyles.colorSecondary}
               onPress={() => {
                 setDemarrTaskAccordian(!demarrTaskAccordian);
               }}
@@ -84,6 +90,7 @@ export default function Settings({ navigation }) {
               />
             </List.Accordion>
             <List.Accordion
+              style={demarrStyles.colorSecondary}
               onPress={() => {
                 setDemarrChoreAccordian(!demarrChoreAccordian);
               }}
@@ -98,6 +105,7 @@ export default function Settings({ navigation }) {
               />
             </List.Accordion>
             <List.Accordion
+              style={demarrStyles.colorSecondary}
               onPress={() => {
                 setDemarrJackpotAccordian(!demarrJackpotAccordian);
               }}
@@ -113,6 +121,7 @@ export default function Settings({ navigation }) {
             </List.Accordion>
           </List.Accordion>
           <List.Accordion
+            style={draiganStyles.colorPrimary}
             expanded={draiganAccordianValue}
             title="Draigan"
             id="2"
