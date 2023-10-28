@@ -13,10 +13,12 @@ export default function Demarr({ navigation }) {
   const [requiredPoints, setRequiredPoints] = useState();
   const [chorePoints, setChorePoints] = useState(0);
   const [choresRequired, setChoresRequired] = useState(null);
+  const [currentDay, setCurrentDay] = useState("");
   const [newDay, setNewDay] = useState(false);
-  const [yesterday, setYesterday] = useState("");
 
   const day = moment().format("dddd");
+  // const day = "Thursday";
+
   //Retrieve from sql-lite
   async function getData() {
     const data = await getDataDemarr();
@@ -33,6 +35,7 @@ export default function Demarr({ navigation }) {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       getData();
+      // checkForNewDay();
     });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
@@ -42,11 +45,14 @@ export default function Demarr({ navigation }) {
   // On Mount
   useEffect(() => {
     getData();
+    // checkForNewDay();
   }, []);
 
   function checkForNewDay() {
-    if (day != yesterday) {
-      setYesterday(day);
+    if (day != currentDay) {
+      setCurrentDay(day);
+      resetChecked();
+      console.log("new day");
     }
   }
   function resetChecked() {

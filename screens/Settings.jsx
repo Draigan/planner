@@ -135,10 +135,7 @@ export default function Settings({ navigation }) {
               );
             })}
             <ChoresSettingsDemarr
-              choreTextDemarr={choreTextDemarr}
-              setChoreTextDemarr={setChoreTextDemarr}
               dataDemarr={dataDemarr}
-              setSelectedDemarr={setSelectedDemarr}
               storeDataDemarr={storeDataDemarr}
               setReload={setReload}
             />

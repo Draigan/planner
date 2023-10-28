@@ -1,16 +1,17 @@
 import { Text } from "react-native-paper";
+import { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Button, TextInput, List } from "react-native-paper";
 import SelectListDays from "./SelectListDays";
 
 const ChoresSettingsDemarr = ({
   dataDemarr,
-  choreTextDemarr,
-  setSelectedDemarr,
-  setChoreTextDemarr,
   setReload,
   storeDataDemarr,
 } = props) => {
+  const [selectedDemarr, setSelectedDemarr] = useState("");
+  const [choreTextDemarr, setChoreTextDemarr] = useState("");
+
   const choreArrayMap = {
     0: "Sunday",
     1: "Monday",
@@ -23,6 +24,15 @@ const ChoresSettingsDemarr = ({
 
   function deleteItemChore(indexChore, indexDay) {
     dataDemarr.chores[indexChore].list.splice(indexDay, 1);
+    console.log(dataDemarr.chores);
+    storeDataDemarr(dataDemarr);
+    setReload((prev) => !prev);
+  }
+
+  function addItemChore(day) {
+    dataDemarr.chores
+      .find((item) => day === item.name)
+      .list.push({ task: choreTextDemarr, checked: false });
     console.log(dataDemarr.chores);
     storeDataDemarr(dataDemarr);
     setReload((prev) => !prev);
@@ -41,7 +51,7 @@ const ChoresSettingsDemarr = ({
       <Button
         style={{ width: 150, margin: 5 }}
         mode="contained"
-        onPress={() => handleAddNewTask("demarr")}
+        onPress={() => addItemChore(selectedDemarr)}
       >
         Add Chore
       </Button>
@@ -51,7 +61,7 @@ const ChoresSettingsDemarr = ({
           <View key={index + 7}>
             <Text variant="headlineSmall">{choreArrayMap[index]}</Text>
             {dataDemarr.chores[index].list.map((dayItem, indexDay) => {
-              console.log(dayItem);
+              console.log(dayItem.task);
               return (
                 <TouchableOpacity
                   key={Math.random()}
