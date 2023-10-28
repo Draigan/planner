@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import SelectListDays from "../components/SelectListDays";
 import moment from "moment";
 import { Text, TextInput, Button, List } from "react-native-paper";
@@ -10,21 +9,24 @@ import {
   getDataDraigan,
 } from "../async-storage/helpers";
 import ChoresSettingsDemarr from "../components/ChoresSettingsDemarr";
+import TaskSettingsDemarr from "../components/TaskSettingsDemarr";
+import JackpotSettingsDemarr from "../components/JackpotSettingsDemarr";
+import { demarrStyles } from "../css/styles";
+import { useState, useEffect } from "react";
 
 export default function Settings({ navigation }) {
+  // Demarr States
+  const [demarrAccordianValue, setDemarrAccordianValue] = useState(false);
+  const [dataDemarr, setDataDemarr] = useState(null);
+  const [demarrTaskAccordian, setDemarrTaskAccordian] = useState(false);
+  const [demarrChoreAccordian, setDemarrChoreAccordian] = useState(false);
+  const [demarrJackpotAccordian, setDemarrJackpotAccordian] = useState(false);
+
   const [textDraigan, setTextDraigan] = useState("");
-  const [textDemarr, setTextDemarr] = useState("");
-  const [requiredPointsDemarr, setRequiredPointsDemarr] = useState(null);
   const [requiredPointsDraigan, setRequiredPointsDraigan] = useState(null);
   const [dataDraigan, setDataDraigan] = useState(null);
-  const [dataDemarr, setDataDemarr] = useState(null);
-  const [numberDemarr, setNumberDemarr] = useState(null);
   const [reload, setReload] = useState(false);
-  const [demarrAccordianValue, setDemarrAccordianValue] = useState(false);
   const [draiganAccordianValue, setDraiganAccordianValue] = useState(false);
-  const [selected, setSelected] = useState("");
-  const [selectedDemarr, setSelectedDemarr] = useState("");
-  const [choreTextDemarr, setChoreTextDemarr] = useState("");
 
   async function getDatas() {
     const draiganData = await getDataDraigan();
@@ -53,46 +55,13 @@ export default function Settings({ navigation }) {
     getDatas();
   }, [reload]);
 
-  function handleAddNewTask(name) {
-    if (name === "demarr") {
-      dataDemarr.tasks.push({
-        name: textDemarr,
-        points: numberDemarr,
-        checked: false,
-      });
-      storeDataDemarr(dataDemarr);
-    }
-    setReload((prev) => !prev);
-  }
-
-  function setRequiredPoints(name) {
-    if (name === "draigan") {
-      dataDraigan.requiredPoints = Number(requiredPointsDraigan);
-      storeDataDraigan(dataDraigan);
-    } else if (name === "demarr") {
-      dataDemarr.requiredPoints = Number(requiredPointsDemarr);
-
-      storeDataDemarr(dataDemarr);
-    }
-  }
-
-  function deleteItem(index, name) {
-    if (name === "demarr") {
-      dataDemarr.tasks.splice(index, 1);
-      storeDataDemarr(dataDemarr);
-    } else if (name === "draigan") {
-      storeDataDraigan(dataDemarr);
-      data.Draigan.tasks.splice(index, 1);
-    }
-    setReload((prev) => !prev);
-  }
-
   return (
     dataDraigan &&
     dataDemarr && (
       <ScrollView>
         <List.Section>
           <List.Accordion
+            style={demarrStyles.background}
             onPress={() => {
               setDemarrAccordianValue(!demarrAccordianValue);
             }}
@@ -100,67 +69,54 @@ export default function Settings({ navigation }) {
             title="Demarr"
             id="1"
           >
-            <Text variant="displaySmall">Tasks</Text>
-            <TextInput
-              label="Task Name"
-              value={textDemarr}
-              onChangeText={(text) => setTextDemarr(text)}
-            />
-            <TextInput
-              keyboardType="numeric"
-              label="Points"
-              value={numberDemarr}
-              onChangeText={(number) => setNumberDemarr(number)}
-            />
-            <Button
-              style={{ width: 150, margin: 5 }}
-              mode="contained"
-              onPress={() => handleAddNewTask("demarr")}
+            <List.Accordion
+              onPress={() => {
+                setDemarrTaskAccordian(!demarrTaskAccordian);
+              }}
+              expanded={demarrTaskAccordian}
+              title="Tasks"
+              id="1"
             >
-              Add New Task
-            </Button>
-            <Text variant="headlineSmall">Daily Tasks</Text>
-            {dataDemarr.tasks.map((item, index) => {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  onLongPress={() => deleteItem(index, "demarr")}
-                >
-                  <List.Item
-                    title={item.name}
-                    description={item.points}
-                    left={(props) => <List.Icon {...props} icon="heart" />}
-                  />
-                </TouchableOpacity>
-              );
-            })}
-            <ChoresSettingsDemarr
-              dataDemarr={dataDemarr}
-              storeDataDemarr={storeDataDemarr}
-              setReload={setReload}
-            />
-            <Text variant="displaySmall">Jackpot Settings</Text>
-            <TextInput
-              keyboardType="numeric"
-              label="Required Points For Jackpot"
-              value={requiredPointsDemarr}
-              onChangeText={(text) => setRequiredPointsDemarr(text)}
-            />
-            <Button
-              style={{ width: 150, margin: 5 }}
-              mode="contained"
-              onPress={() => setRequiredPoints("demarr")}
+              <TaskSettingsDemarr
+                dataDemarr={dataDemarr}
+                storeDataDemarr={storeDataDemarr}
+                setReload={setReload}
+              />
+            </List.Accordion>
+            <List.Accordion
+              onPress={() => {
+                setDemarrChoreAccordian(!demarrChoreAccordian);
+              }}
+              expanded={demarrChoreAccordian}
+              title="Chores"
+              id="1"
             >
-              Set
-            </Button>
+              <ChoresSettingsDemarr
+                dataDemarr={dataDemarr}
+                storeDataDemarr={storeDataDemarr}
+                setReload={setReload}
+              />
+            </List.Accordion>
+            <List.Accordion
+              onPress={() => {
+                setDemarrJackpotAccordian(!demarrJackpotAccordian);
+              }}
+              expanded={demarrJackpotAccordian}
+              title="Jackpot Settings"
+              id="1"
+            >
+              <JackpotSettingsDemarr
+                dataDemarr={dataDemarr}
+                storeDataDemarr={storeDataDemarr}
+                setReload={setReload}
+              />
+            </List.Accordion>
           </List.Accordion>
           <List.Accordion
             expanded={draiganAccordianValue}
             title="Draigan"
             id="2"
-          >
-            <Text> Draigan </Text>
-          </List.Accordion>
+          ></List.Accordion>
         </List.Section>
       </ScrollView>
     )

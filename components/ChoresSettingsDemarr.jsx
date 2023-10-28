@@ -40,13 +40,11 @@ const ChoresSettingsDemarr = ({
 
   return (
     <View>
-      <Text variant="displaySmall">Chores</Text>
       <TextInput
-        label="Input Chore"
+        label="Input Chore Name"
         value={choreTextDemarr}
         onChangeText={(text) => setChoreTextDemarr(text)}
       />
-      <Text variant="headlineSmall">Choose Day</Text>
       <SelectListDays setSelectedDemarr={setSelectedDemarr} />
       <Button
         style={{ width: 150, margin: 5 }}
@@ -55,7 +53,6 @@ const ChoresSettingsDemarr = ({
       >
         Add Chore
       </Button>
-      <Text variant="headlineSmall">Current Chores</Text>
       {dataDemarr.chores.map((item, index) => {
         return (
           <View key={index + 7}>
