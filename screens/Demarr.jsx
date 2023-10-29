@@ -104,7 +104,7 @@ export default function Demarr({ navigation }) {
           <DataTable>
             <DataTable.Header>
               <DataTable.Title sortDirection="descending">
-                Activity
+                Daily Tasks
               </DataTable.Title>
               <DataTable.Title>Points</DataTable.Title>
               <DataTable.Title>
@@ -134,7 +134,7 @@ export default function Demarr({ navigation }) {
           <DataTable>
             <DataTable.Header>
               <DataTable.Title sortDirection="descending">
-                {day}
+                Chores for {day}
               </DataTable.Title>
               <DataTable.Title></DataTable.Title>
               <DataTable.Title>
