@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { List } from "react-native-paper";
-import { demarrStyles } from "../css/styles";
+import { Text, List } from "react-native-paper";
+import { demarrStyles } from "../../css/styles";
 import TaskSettingsDemarr from "./TaskSettingsDemarr";
 import ChoresSettingsDemarr from "./ChoresSettingsDemarr";
 import JackpotSettingsDemarr from "./JackpotSettingsDemarr";
+import MorningRoutineSettingsDemarr from "./MorningRoutineSettingsDemarr";
+
 export default function DemarrSettings({
   dataDemarr,
   storeDataDemarr,
@@ -17,6 +19,8 @@ export default function DemarrSettings({
   setDemarrChoreAccordian,
   demarrJackpotAccordian,
   setDemarrJackpotAccordian,
+  setDemarrMorningRoutineAccordian,
+  demarrMorningRoutineAccordian,
 } = props) {
   return (
     <List.Section>
@@ -34,6 +38,20 @@ export default function DemarrSettings({
         title="Demarr"
         id="1"
       >
+        <List.Accordion
+          style={demarrStyles.colorSecondary}
+          onPress={() => {
+            setDemarrMorningRoutineAccordian(!demarrMorningRoutineAccordian);
+          }}
+          expanded={demarrMorningRoutineAccordian}
+          title="Morning Routine"
+          id="6"
+        >
+          <MorningRoutineSettingsDemarr
+            setReload={setReload}
+            dataDemarr={dataDemarr}
+          />
+        </List.Accordion>
         <List.Accordion
           style={demarrStyles.colorSecondary}
           onPress={() => {

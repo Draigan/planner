@@ -18,7 +18,19 @@ const draiganStyles = StyleSheet.create({
   },
 });
 
+const boxStyles = StyleSheet.create({
+  standardBox: {
+    backgroundColor: "#f1f1f1",
+    width: "90%",
+    borderWidth: 1,
+    borderColor: "black",
+  },
+  colorSecondary: {
+    backgroundColor: "#52a8ab",
+  },
+});
+
 const uiStyles = {
   colorPrimary: "#f1f1f1",
 };
-export { uiStyles, demarrStyles, draiganStyles };
+export { uiStyles, boxStyles, demarrStyles, draiganStyles };

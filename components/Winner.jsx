@@ -3,7 +3,6 @@ import { Text } from "react-native-paper";
 import { Image } from "react-native";
 
 export function Winner({ finalNumber } = props) {
-  console.log(finalNumber);
   const [showWinner, setShowWinner] = useState(false);
   useEffect(() => {
     const flashInterval = setInterval(() => {
@@ -18,7 +17,7 @@ export function Winner({ finalNumber } = props) {
           style={{ color: "green", opacity: showWinner ? 1 : 0 }}
           variant="displayLarge"
         >
-          JACKPOT!!!!! {finalNumber}
+          JACKPOT!! {finalNumber}
         </Text>
         <Image source={require("../assets/fireworks1.gif")} />
       </>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Button, List, Text, TextInput } from "react-native-paper";
-import { uiStyles } from "../css/styles";
-import { storeDataDemarr } from "../async-storage/helpers";
+import { Button, DataTable, List, Text, TextInput } from "react-native-paper";
+import { uiStyles } from "../../css/styles";
+import { storeDataDemarr } from "../../async-storage/helpers";
 export default function TaskSettingsDemarr({ dataDemarr, setReload } = props) {
   const [textDemarr, setTextDemarr] = useState("");
   const [numberDemarr, setNumberDemarr] = useState(null);
@@ -24,6 +24,20 @@ export default function TaskSettingsDemarr({ dataDemarr, setReload } = props) {
   }
   return (
     <>
+      <DataTable>
+        {dataDemarr.tasks.map((item, index) => {
+          return (
+            <TouchableOpacity
+              key={index}
+              onLongPress={() => deleteItem(index, "demarr")}
+            >
+              <DataTable.Row>
+                <DataTable.Cell>{item.name}</DataTable.Cell>
+              </DataTable.Row>
+            </TouchableOpacity>
+          );
+        })}
+      </DataTable>
       <TextInput
         backgroundColor={uiStyles.colorPrimary}
         label="Task Name"
@@ -44,21 +58,6 @@ export default function TaskSettingsDemarr({ dataDemarr, setReload } = props) {
       >
         Add New Task
       </Button>
-      <Text variant="headlineSmall">Daily Tasks</Text>
-      {dataDemarr.tasks.map((item, index) => {
-        return (
-          <TouchableOpacity
-            key={index}
-            onLongPress={() => deleteItem(index, "demarr")}
-          >
-            <List.Item
-              title={item.name}
-              description={item.points}
-              left={(props) => <List.Icon {...props} icon="arrow-right" />}
-            />
-          </TouchableOpacity>
-        );
-      })}
     </>
   );
 }

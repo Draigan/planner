@@ -12,8 +12,7 @@ const Jackpot = () => {
   const [finalNumberTimer, setFinalNumberTimer] = useState();
 
   function changeCenterNumber() {
-    if (credit === 0) return;
-    setFinalNumber(undefined);
+    if (credit === 0 || finalNumber != undefined) return;
     setCenterNumber(0);
     setCredit((prev) => prev - 1);
     let firstRound = true;
@@ -39,7 +38,7 @@ const Jackpot = () => {
 
   // On mount
   useEffect(() => {
-    setCredit(11);
+    setCredit(1);
     return () => {
       clearTimeout(centerNumberTimer);
       clearTimeout(finalNumberTimer);

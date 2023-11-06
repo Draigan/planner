@@ -86,6 +86,13 @@ storeDataDemarr({
     { name: "Out of bed by 8", points: 3, checked: false },
   ],
   requiredPoints: 10,
+  morningRoutine: [
+    { name: "Wake up by 9", checked: false },
+    { name: "make coffee", checked: false },
+    { name: "eat", checked: false },
+    { name: "brush teeth", checked: false },
+    { name: "Wake up by 9", checked: false },
+  ],
   chores: [
     {
       name: "Sunday",

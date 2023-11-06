@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Text, TextInput } from "react-native-paper";
-import { storeDataDemarr } from "../async-storage/helpers";
+import { storeDataDemarr } from "../../async-storage/helpers";
 
 export default function JackpotSettingsDemarr({
   dataDemarr,

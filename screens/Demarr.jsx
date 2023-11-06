@@ -2,17 +2,20 @@ import { Text, ScrollView, View } from "react-native";
 import { useEffect, useState } from "react";
 import { getDataDemarr, storeDataDemarr } from "../async-storage/helpers.js";
 import { Checkbox, Button, DataTable } from "react-native-paper";
-import Jackpot from "./Jackpot.jsx";
 import moment from "moment";
+import { demarrStyles } from "../css/styles.jsx";
 
 export default function Demarr({ navigation }) {
   const [data, setData] = useState(null);
   const [checked, setChecked] = useState(false);
   const [points, setPoints] = useState(0);
   const [reload, setReload] = useState(false);
-  const [requiredPoints, setRequiredPoints] = useState();
+  const [requiredPoints, setRequiredPoints] = useState(0);
   const [chorePoints, setChorePoints] = useState(0);
   const [choresRequired, setChoresRequired] = useState(null);
+  const [morningRoutinePoints, setMorningRoutinePoints] = useState(0);
+  const [morningRoutinePointsRequired, setMorningRoutinePointsRequired] =
+    useState();
   const [currentDay, setCurrentDay] = useState("");
   const [newDay, setNewDay] = useState(false);
 
@@ -25,7 +28,9 @@ export default function Demarr({ navigation }) {
     setData(data);
     pointChecker(data);
     chorePointChecker(data);
+    morningRoutinePointsChecker(data);
     setRequiredPoints(data.requiredPoints);
+    setMorningRoutinePointsRequired(data.morningRoutine.length);
     setChoresRequired(
       data.chores.find((item) => day === item.name).list.length,
     );
@@ -70,10 +75,21 @@ export default function Demarr({ navigation }) {
 
   function isJackpotReady() {
     if (chorePoints < choresRequired) return;
+    if (morningRoutinePoints < morningRoutinePointsRequired) return;
     if (points < requiredPoints) return;
     resetChecked();
     setPoints(0);
     navigation.navigate("Jackpot");
+  }
+
+  function morningRoutinePointsChecker(data) {
+    let points = 0;
+    data.morningRoutine.forEach((item) => {
+      if (item.checked) {
+        points += 1;
+      }
+    });
+    setMorningRoutinePoints(points);
   }
 
   function chorePointChecker(data) {
@@ -87,6 +103,7 @@ export default function Demarr({ navigation }) {
       });
     setChorePoints(points);
   }
+
   function pointChecker(data) {
     let points = 0;
     data.tasks.forEach((item) => {
@@ -102,7 +119,36 @@ export default function Demarr({ navigation }) {
       <View style={{ flex: 1 }}>
         <ScrollView>
           <DataTable>
-            <DataTable.Header>
+            <DataTable.Header style={demarrStyles.colorPrimary}>
+              <DataTable.Title sortDirection="descending">
+                Morning Routine
+              </DataTable.Title>
+              <DataTable.Title></DataTable.Title>
+              <DataTable.Title>
+                {morningRoutinePoints} of {morningRoutinePointsRequired}
+              </DataTable.Title>
+            </DataTable.Header>
+
+            {data.morningRoutine.map((item, index) => (
+              <DataTable.Row key={index}>
+                <DataTable.Cell>{item.name}</DataTable.Cell>
+                <DataTable.Cell></DataTable.Cell>
+                <DataTable.Cell>
+                  <Checkbox
+                    status={item.checked ? "checked" : "unchecked"}
+                    onPress={() => {
+                      item.checked = !item.checked;
+                      morningRoutinePointsChecker(data);
+                      storeDataDemarr(data);
+                      console.log(item.checked);
+                    }}
+                  />
+                </DataTable.Cell>
+              </DataTable.Row>
+            ))}
+          </DataTable>
+          <DataTable>
+            <DataTable.Header style={demarrStyles.colorPrimary}>
               <DataTable.Title sortDirection="descending">
                 Daily Tasks
               </DataTable.Title>
@@ -120,9 +166,6 @@ export default function Demarr({ navigation }) {
                     status={item.checked ? "checked" : "unchecked"}
                     onPress={() => {
                       item.checked = !item.checked;
-                      item.checked
-                        ? setPoints((prevPoints) => prevPoints + item.points)
-                        : setPoints((prevPoints) => prevPoints - item.points);
                       pointChecker(data);
                       storeDataDemarr(data);
                     }}
@@ -132,7 +175,7 @@ export default function Demarr({ navigation }) {
             ))}
           </DataTable>
           <DataTable>
-            <DataTable.Header>
+            <DataTable.Header style={demarrStyles.colorPrimary}>
               <DataTable.Title sortDirection="descending">
                 Chores for {day}
               </DataTable.Title>
@@ -141,6 +184,7 @@ export default function Demarr({ navigation }) {
                 {chorePoints} of {choresRequired}
               </DataTable.Title>
             </DataTable.Header>
+
             {data.chores
               .find((item) => day === item.name)
               .list.map((item, index) => (
@@ -152,9 +196,6 @@ export default function Demarr({ navigation }) {
                       status={item.checked ? "checked" : "unchecked"}
                       onPress={() => {
                         item.checked = !item.checked;
-                        // item.checked
-                        //   ? setChorePoints((prevPoints) => prevPoints + 1)
-                        //   : setChorePoints((prevPoints) => prevPoints - 1);
                         chorePointChecker(data);
                         storeDataDemarr(data);
                         console.log(item.checked);
@@ -175,7 +216,9 @@ export default function Demarr({ navigation }) {
           <Button
             style={{
               backgroundColor:
-                points >= requiredPoints && chorePoints >= choresRequired
+                points >= requiredPoints &&
+                chorePoints >= choresRequired &&
+                morningRoutinePoints >= morningRoutinePointsRequired
                   ? "red"
                   : "black",
               width: 150,

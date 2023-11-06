@@ -8,12 +8,14 @@ import {
 } from "../async-storage/helpers";
 import { draiganStyles } from "../css/styles";
 import { useState, useEffect } from "react";
-import DemarrSettings from "../components/DemarrSettings";
+import DemarrSettings from "../components/demarr/DemarrSettings";
 
 export default function Settings({ navigation }) {
   // Demarr States
   const [demarrAccordianValue, setDemarrAccordianValue] = useState(false);
   const [demarrTaskAccordian, setDemarrTaskAccordian] = useState(false);
+  const [demarrMorningRoutineAccordian, setDemarrMorningRoutineAccordian] =
+    useState(false);
   const [demarrChoreAccordian, setDemarrChoreAccordian] = useState(false);
   const [demarrJackpotAccordian, setDemarrJackpotAccordian] = useState(false);
 
@@ -66,6 +68,8 @@ export default function Settings({ navigation }) {
             demarrJackpotAccordian={demarrJackpotAccordian}
             setDemarrChoreAccordian={setDemarrChoreAccordian}
             demarrChoreAccordian={demarrChoreAccordian}
+            demarrMorningRoutineAccordian={demarrMorningRoutineAccordian}
+            setDemarrMorningRoutineAccordian={setDemarrMorningRoutineAccordian}
             dataDemarr={dataDemarr}
             setReload={setReload}
           />

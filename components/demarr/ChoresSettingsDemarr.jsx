@@ -1,9 +1,10 @@
-import { Text } from "react-native-paper";
+import { DataTable, Text } from "react-native-paper";
 import { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Button, TextInput, List } from "react-native-paper";
-import SelectListDays from "./SelectListDays";
-import { storeDataDemarr } from "../async-storage/helpers";
+import SelectListDays from "../SelectListDays";
+import { storeDataDemarr } from "../../async-storage/helpers";
+import { boxStyles, uiStyles } from "../../css/styles";
 const ChoresSettingsDemarr = ({ dataDemarr, setReload } = props) => {
   const [selectedDemarr, setSelectedDemarr] = useState("");
   const [choreTextDemarr, setChoreTextDemarr] = useState("");
@@ -33,26 +34,34 @@ const ChoresSettingsDemarr = ({ dataDemarr, setReload } = props) => {
     storeDataDemarr(dataDemarr);
     setReload((prev) => !prev);
   }
-
   return (
     <View>
-      <TextInput
-        label="Input Chore Name"
-        value={choreTextDemarr}
-        onChangeText={(text) => setChoreTextDemarr(text)}
-      />
-      <SelectListDays setSelectedDemarr={setSelectedDemarr} />
-      <Button
-        style={{ width: 150, margin: 5 }}
-        mode="contained"
-        onPress={() => addItemChore(selectedDemarr)}
-      >
-        Add Chore
-      </Button>
+      <View style={{ alignItems: "center" }}>
+        <View
+          style={{
+            ...boxStyles.standardBox,
+          }}
+        >
+          <TextInput
+            backgroundColor={uiStyles.colorPrimary}
+            label="Input Chore Name"
+            value={choreTextDemarr}
+            onChangeText={(text) => setChoreTextDemarr(text)}
+          />
+          <SelectListDays setSelectedDemarr={setSelectedDemarr} />
+          <Button
+            style={{ width: 150, margin: 5 }}
+            mode="contained"
+            onPress={() => addItemChore(selectedDemarr)}
+          >
+            Add Chore
+          </Button>
+        </View>
+      </View>
       {dataDemarr.chores.map((item, index) => {
         return (
           <View key={index + 7}>
-            <Text variant="headlineSmall">{choreArrayMap[index]}</Text>
+            <Text variant="">{choreArrayMap[index]}</Text>
             {dataDemarr.chores[index].list.map((dayItem, indexDay) => {
               console.log(dayItem.task);
               return (
