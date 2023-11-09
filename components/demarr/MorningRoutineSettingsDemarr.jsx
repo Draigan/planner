@@ -47,7 +47,7 @@ const MorningRoutineSettingsDemarr = ({ dataDemarr, setReload } = props) => {
         >
           <TextInput
             backgroundColor={uiStyles.colorPrimary}
-            label="Input Morning Routine Task"
+            label="Input morning routine item..."
             value={morningRoutineTextDemarr}
             onChangeText={(text) => setMorningRoutineTextDemarr(text)}
           />
