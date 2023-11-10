@@ -1,12 +1,11 @@
-import { DataTable, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Button, TextInput, List } from "react-native-paper";
 import SelectListDays from "../SelectListDays";
-import { storeDataDemarr } from "../../async-storage/helpers";
 import { boxStyles, uiStyles } from "../../css/styles";
 
-const ChoresSettings = ({ data, setReload } = props) => {
+const ChoresSettings = ({ data, setReload, storeData } = props) => {
   const [selectedDemarr, setSelectedDemarr] = useState("");
   const [choreTextDemarr, setChoreTextDemarr] = useState("");
 
@@ -23,7 +22,7 @@ const ChoresSettings = ({ data, setReload } = props) => {
   function deleteItemChore(indexChore, indexDay) {
     data.chores[indexChore].list.splice(indexDay, 1);
     console.log(data.chores);
-    storeDataDemarr(data);
+    storeData(data);
     setReload((prev) => !prev);
   }
 
@@ -32,7 +31,7 @@ const ChoresSettings = ({ data, setReload } = props) => {
       .find((item) => day === item.name)
       .list.push({ task: choreTextDemarr, checked: false });
     console.log(data.chores);
-    storeDataDemarr(data);
+    storeData(data);
     setReload((prev) => !prev);
   }
   return (

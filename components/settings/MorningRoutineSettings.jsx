@@ -1,16 +1,15 @@
-import { DataTable, Text } from "react-native-paper";
+import { DataTable } from "react-native-paper";
 import { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Button, TextInput, List, Divider } from "react-native-paper";
-import { storeDataDemarr } from "../../async-storage/helpers";
 import { boxStyles, uiStyles, demarrStyles } from "../../css/styles";
 
-const MorningRoutineSettings = ({ data, setReload } = props) => {
+const MorningRoutineSettings = ({ data, storeData, setReload } = props) => {
   const [morningRoutineTextDemarr, setMorningRoutineTextDemarr] = useState("");
 
   function deleteItem(index) {
     data.morningRoutine.splice(index, 1);
-    storeDataDemarr(data);
+    storeData(data);
     setReload((prev) => !prev);
   }
 
@@ -19,7 +18,7 @@ const MorningRoutineSettings = ({ data, setReload } = props) => {
       name: morningRoutineTextDemarr,
       checked: false,
     });
-    storeDataDemarr(data);
+    storeData(data);
     setReload((prev) => !prev);
   }
   return (

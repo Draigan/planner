@@ -1,16 +1,13 @@
 import { useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
-import { Text, List } from "react-native-paper";
+import { List } from "react-native-paper";
 import { demarrStyles } from "../../css/styles";
 import TaskSettings from "./TaskSettings";
 import ChoresSettings from "./ChoresSettings";
-import DemarrSettings from "../demarr/DemarrSettings.jsx"
 import JackpotSettings from "./JackpotSettings";
 import MorningRoutineSettings from "./MorningRoutineSettings";
 
 export default function MainSettings({
   data,
-  storeDataDemarr,
   setReload,
   accordianValue,
   setAccordianValue,
@@ -22,6 +19,7 @@ export default function MainSettings({
   setJackpotAccordian,
   setMorningRoutineAccordian,
   morningRoutineAccordian,
+  storeData
 } = props) {
   return (
     <List.Section>
@@ -36,7 +34,7 @@ export default function MainSettings({
           }
         }}
         expanded={accordianValue}
-        title="Demarr"
+        title={data.userName}
         id="1"
       >
         <List.Accordion
@@ -51,6 +49,7 @@ export default function MainSettings({
           <MorningRoutineSettings
             setReload={setReload}
             data={data}
+            storeData={storeData}
           />
         </List.Accordion>
         <List.Accordion
@@ -64,7 +63,7 @@ export default function MainSettings({
         >
           <TaskSettings
             data={data}
-            storeDataDemarr={storeDataDemarr}
+            storeData={storeData}
             setReload={setReload}
           />
         </List.Accordion>
@@ -79,7 +78,7 @@ export default function MainSettings({
         >
           <ChoresSettings
             data={data}
-            storeDataDemarr={storeDataDemarr}
+            storeData={storeData}
             setReload={setReload}
           />
         </List.Accordion>
@@ -94,7 +93,7 @@ export default function MainSettings({
         >
           <JackpotSettings
             data={data}
-            storeDataDemarr={storeDataDemarr}
+            storeData={storeData}
             setReload={setReload}
           />
         </List.Accordion>

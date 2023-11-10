@@ -2,14 +2,13 @@ import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Button, DataTable, List, Text, TextInput } from "react-native-paper";
 import { uiStyles } from "../../css/styles";
-import { storeDataDemarr } from "../../async-storage/helpers";
 export default function TaskSettings({ data, setReload } = props) {
   const [textDemarr, setTextDemarr] = useState("");
   const [numberDemarr, setNumberDemarr] = useState(null);
 
-  function deleteItem(index, name) {
+  function deleteItem(index) {
     data.tasks.splice(index, 1);
-    storeDataDemarr(data);
+    storeData(data);
     setReload((prev) => !prev);
   }
 
@@ -19,7 +18,7 @@ export default function TaskSettings({ data, setReload } = props) {
       points: numberDemarr,
       checked: false,
     });
-    storeDataDemarr(data);
+    storeData(data);
     setReload((prev) => !prev);
   }
   return (
