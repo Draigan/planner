@@ -56,17 +56,62 @@ storeDataDraigan({
     { name: "Out of bed by 8", points: 3, checked: false },
   ],
   requiredPoints: 10,
+  morningRoutine: [
+    { name: "Wake up by 9", checked: false },
+    { name: "make coffee", checked: false },
+    { name: "eat", checked: false },
+    { name: "brush teeth", checked: false },
+    { name: "Wake up by 9", checked: false },
+  ],
   chores: [
-    { name: "Sunday", list: ["Water Plants", "Eat food"] },
-    { name: "Monday", list: ["do stuff", "eat health", "love plants"] },
-    { name: "Tuesday", list: ["eat cheese", "run", "bike", "swim"] },
-    { name: "WednesDay", list: ["laze around", "do stuff"] },
-    { name: "Thursday", list: ["Try I guess", "hello world"] },
+    {
+      name: "Sunday",
+      list: [
+        { task: "1Water Plants", checked: false },
+        { task: "2Water Plants", checked: false },
+      ],
+    },
+    {
+      name: "Monday",
+      list: [
+        { task: "3Water Plants", checked: false },
+        { task: "4Water Plants", checked: false },
+        { task: "5Water Plants", checked: false },
+      ],
+    },
+    {
+      name: "Tuesday",
+      list: [
+        { task: "6Water Plants", checked: false },
+        { task: "7Water Plants", checked: false },
+        { task: "8Water Plants", checked: false },
+        { task: "9Water Plants", checked: false },
+      ],
+    },
+    {
+      name: "WednesDay",
+      list: [
+        { task: "xWater Plants", checked: false },
+        { task: "yWater Plants", checked: false },
+      ],
+    },
+    {
+      name: "Thursday",
+      list: [
+        { task: "rWater Plants", checked: false },
+        { task: "nWater Plants", checked: false },
+      ],
+    },
     {
       name: "Friday",
-      list: ["123", "forty fivbe thousand", "doing stuff again", "run"],
+      list: [
+        { task: "ajWater Plants", checked: false },
+        { task: "cWater Plants", checked: false },
+        { task: "bWater Plants", checked: false },
+        { task: ",Water Plants", checked: false },
+      ],
     },
-    { name: "Saturday", list: ["nothing day"] },
+    { name: "Saturday", list: [{ task: "Water Plants", checked: false }] },
   ],
 });
 
@@ -144,5 +189,4 @@ storeDataDemarr({
     { name: "Saturday", list: [{ task: "Water Plants", checked: false }] },
   ],
 });
-
 export { storeDataDraigan, storeDataDemarr, getDataDraigan, getDataDemarr };

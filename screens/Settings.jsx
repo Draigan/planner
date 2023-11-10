@@ -8,10 +8,12 @@ import {
 } from "../async-storage/helpers";
 import { draiganStyles } from "../css/styles";
 import { useState, useEffect } from "react";
-import DemarrSettings from "../components/demarr/DemarrSettings";
+import MainSettings from "../components/draigan/MainSettings";
+import DemarrSettings from "../components/demarr/DemarrSettings.jsx"
 
 export default function Settings({ navigation }) {
   // Demarr States
+  const [dataDemarr, setDataDemarr] = useState(null);
   const [demarrAccordianValue, setDemarrAccordianValue] = useState(false);
   const [demarrTaskAccordian, setDemarrTaskAccordian] = useState(false);
   const [demarrMorningRoutineAccordian, setDemarrMorningRoutineAccordian] =
@@ -19,13 +21,18 @@ export default function Settings({ navigation }) {
   const [demarrChoreAccordian, setDemarrChoreAccordian] = useState(false);
   const [demarrJackpotAccordian, setDemarrJackpotAccordian] = useState(false);
 
-  const [textDraigan, setTextDraigan] = useState("");
-  const [requiredPointsDraigan, setRequiredPointsDraigan] = useState(null);
+  //Draigan States
+  const [dataDraigan, setDataDraigan] = useState(null);
   const [draiganAccordianValue, setDraiganAccordianValue] = useState(false);
+  const [draiganTaskAccordian, setDraiganTaskAccordian] = useState(false);
+  const [draiganMorningRoutineAccordian, setDraiganMorningRoutineAccordian] =
+    useState(false);
+  const [draiganChoreAccordian, setDraiganChoreAccordian] = useState(false);
+  const [draiganJackpotAccordian, setDraiganJackpotAccordian] = useState(false);
+
+  const [requiredPointsDraigan, setRequiredPointsDraigan] = useState(null);
 
   const [reload, setReload] = useState(false);
-  const [dataDemarr, setDataDemarr] = useState(null);
-  const [dataDraigan, setDataDraigan] = useState(null);
 
   async function getDatas() {
     const draiganData = await getDataDraigan();
@@ -58,7 +65,7 @@ export default function Settings({ navigation }) {
     dataDraigan &&
     dataDemarr && (
       <ScrollView>
-        <List.Section>
+        {/* Demarr */}
           <DemarrSettings
             setDemarrAccordianValue={setDemarrAccordianValue}
             demarrAccordianValue={demarrAccordianValue}
@@ -73,13 +80,22 @@ export default function Settings({ navigation }) {
             dataDemarr={dataDemarr}
             setReload={setReload}
           />
-          <List.Accordion
-            style={draiganStyles.colorPrimary}
-            expanded={draiganAccordianValue}
-            title="Draigan"
-            id="2"
-          ></List.Accordion>
-        </List.Section>
+        {/* Draigan */}
+          <MainSettings
+            setAccordianValue={setDraiganAccordianValue}
+            accordianValue={draiganAccordianValue}
+           taskAccordian={draiganTaskAccordian}
+            setTaskAccordian={setDraiganTaskAccordian}
+            setJackpotAccordian={setDraiganJackpotAccordian}
+            jackpotAccordian={draiganJackpotAccordian}
+            setChoreAccordian={setDraiganChoreAccordian}
+            choreAccordian={draiganChoreAccordian}
+            morningRoutineAccordian={draiganMorningRoutineAccordian}
+            setMorningRoutineAccordian={setDraiganMorningRoutineAccordian}
+            data={dataDraigan}
+            setReload={setReload}
+          />
+
       </ScrollView>
     )
   );
