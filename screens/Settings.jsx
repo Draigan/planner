@@ -1,15 +1,13 @@
-import { Text, TextInput, Button, List } from "react-native-paper";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView } from "react-native";
 import {
   getDataDemarr,
   storeDataDemarr,
   storeDataDraigan,
   getDataDraigan,
 } from "../async-storage/helpers";
-import { draiganStyles } from "../css/styles";
 import { useState, useEffect } from "react";
-import MainSettings from "../components/draigan/MainSettings";
-import DemarrSettings from "../components/demarr/DemarrSettings.jsx"
+import MainSettings from "../components/settings/MainSettings.jsx";
+import { demarrStyles, draiganStyles } from "../css/styles";
 
 export default function Settings({ navigation }) {
   // Demarr States
@@ -29,9 +27,6 @@ export default function Settings({ navigation }) {
     useState(false);
   const [draiganChoreAccordian, setDraiganChoreAccordian] = useState(false);
   const [draiganJackpotAccordian, setDraiganJackpotAccordian] = useState(false);
-
-  const [requiredPointsDraigan, setRequiredPointsDraigan] = useState(null);
-
   const [reload, setReload] = useState(false);
 
   async function getDatas() {
@@ -66,35 +61,39 @@ export default function Settings({ navigation }) {
     dataDemarr && (
       <ScrollView>
         {/* Demarr */}
-          <DemarrSettings
-            setDemarrAccordianValue={setDemarrAccordianValue}
-            demarrAccordianValue={demarrAccordianValue}
-            demarrTaskAccordian={demarrTaskAccordian}
-            setDemarrTaskAccordian={setDemarrTaskAccordian}
-            setDemarrJackpotAccordian={setDemarrJackpotAccordian}
-            demarrJackpotAccordian={demarrJackpotAccordian}
-            setDemarrChoreAccordian={setDemarrChoreAccordian}
-            demarrChoreAccordian={demarrChoreAccordian}
-            demarrMorningRoutineAccordian={demarrMorningRoutineAccordian}
-            setDemarrMorningRoutineAccordian={setDemarrMorningRoutineAccordian}
-            dataDemarr={dataDemarr}
-            setReload={setReload}
-          />
+        <MainSettings
+          setAccordianValue={setDemarrAccordianValue}
+          accordianValue={demarrAccordianValue}
+          taskAccordian={demarrTaskAccordian}
+          setTaskAccordian={setDemarrTaskAccordian}
+          setJackpotAccordian={setDemarrJackpotAccordian}
+          jackpotAccordian={demarrJackpotAccordian}
+          setChoreAccordian={setDemarrChoreAccordian}
+          choreAccordian={demarrChoreAccordian}
+          morningRoutineAccordian={demarrMorningRoutineAccordian}
+          setMorningRoutineAccordian={setDemarrMorningRoutineAccordian}
+          data={dataDemarr}
+          storeData={storeDataDemarr}
+          setReload={setReload}
+          userStyle={demarrStyles}
+        />
         {/* Draigan */}
-          <MainSettings
-            setAccordianValue={setDraiganAccordianValue}
-            accordianValue={draiganAccordianValue}
-           taskAccordian={draiganTaskAccordian}
-            setTaskAccordian={setDraiganTaskAccordian}
-            setJackpotAccordian={setDraiganJackpotAccordian}
-            jackpotAccordian={draiganJackpotAccordian}
-            setChoreAccordian={setDraiganChoreAccordian}
-            choreAccordian={draiganChoreAccordian}
-            morningRoutineAccordian={draiganMorningRoutineAccordian}
-            setMorningRoutineAccordian={setDraiganMorningRoutineAccordian}
-            data={dataDraigan}
-            setReload={setReload}
-          />
+        <MainSettings
+          setAccordianValue={setDraiganAccordianValue}
+          accordianValue={draiganAccordianValue}
+          taskAccordian={draiganTaskAccordian}
+          setTaskAccordian={setDraiganTaskAccordian}
+          setJackpotAccordian={setDraiganJackpotAccordian}
+          jackpotAccordian={draiganJackpotAccordian}
+          setChoreAccordian={setDraiganChoreAccordian}
+          choreAccordian={draiganChoreAccordian}
+          morningRoutineAccordian={draiganMorningRoutineAccordian}
+          setMorningRoutineAccordian={setDraiganMorningRoutineAccordian}
+          data={dataDraigan}
+          storeData={storeDataDraigan}
+          setReload={setReload}
+          userStyle={draiganStyles}
+        />
 
       </ScrollView>
     )

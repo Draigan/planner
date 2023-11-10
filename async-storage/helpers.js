@@ -19,6 +19,15 @@ const storeDataDemarr = async (value) => {
   }
 };
 
+const storeDataMoney = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem("money", jsonValue);
+  } catch (e) {
+    error.log(e);
+  }
+};
+
 // Retrieve Storage
 
 const getDataDraigan = async () => {
@@ -38,9 +47,20 @@ const getDataDemarr = async () => {
     // error reading value
   }
 };
+
+const getDataMoney = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem("money");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
 // Temporary values for demarr and draigan storage
 
 storeDataDraigan({
+  userName: "Draigan",
+  slug: "draigan",
   tasks: [
     { name: "Brushed teeth", points: 5, checked: false },
     { name: "Exercised", points: 5, checked: true },
@@ -116,6 +136,8 @@ storeDataDraigan({
 });
 
 storeDataDemarr({
+  userName: "Demarr",
+  slug: "demarr",
   tasks: [
     { name: "Brushed teeth", points: 5, checked: false },
     { name: "Exercised", points: 5, checked: true },
@@ -189,4 +211,23 @@ storeDataDemarr({
     { name: "Saturday", list: [{ task: "Water Plants", checked: false }] },
   ],
 });
-export { storeDataDraigan, storeDataDemarr, getDataDraigan, getDataDemarr };
+
+storeDataMoney({
+  transactions: [
+    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
+    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
+    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
+    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
+    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
+    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
+    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
+    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
+    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
+    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
+    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
+    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
+    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
+    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
+  ]
+})
+export { getDataMoney, storeDataMoney, storeDataDraigan, storeDataDemarr, getDataDraigan, getDataDemarr };

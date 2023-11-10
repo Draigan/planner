@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { List } from "react-native-paper";
-import { demarrStyles } from "../../css/styles";
 import TaskSettings from "./TaskSettings";
 import ChoresSettings from "./ChoresSettings";
 import JackpotSettings from "./JackpotSettings";
@@ -19,12 +17,13 @@ export default function MainSettings({
   setJackpotAccordian,
   setMorningRoutineAccordian,
   morningRoutineAccordian,
-  storeData
+  storeData,
+  userStyle
 } = props) {
   return (
     <List.Section>
       <List.Accordion
-        style={demarrStyles.colorPrimary}
+        style={userStyle.colorPrimary}
         onPress={() => {
           setAccordianValue(!accordianValue);
           // If we close the main accordian, close its children
@@ -38,7 +37,7 @@ export default function MainSettings({
         id="1"
       >
         <List.Accordion
-          style={demarrStyles.colorSecondary}
+          style={userStyle.colorSecondary}
           onPress={() => {
             setMorningRoutineAccordian(!morningRoutineAccordian);
           }}
@@ -53,7 +52,7 @@ export default function MainSettings({
           />
         </List.Accordion>
         <List.Accordion
-          style={demarrStyles.colorSecondary}
+          style={userStyle.colorSecondary}
           onPress={() => {
             setTaskAccordian(!taskAccordian);
           }}
@@ -68,7 +67,7 @@ export default function MainSettings({
           />
         </List.Accordion>
         <List.Accordion
-          style={demarrStyles.colorSecondary}
+          style={userStyle.colorSecondary}
           onPress={() => {
             setChoreAccordian(!choreAccordian);
           }}
@@ -83,7 +82,7 @@ export default function MainSettings({
           />
         </List.Accordion>
         <List.Accordion
-          style={demarrStyles.colorSecondary}
+          style={userStyle.colorSecondary}
           onPress={() => {
             setJackpotAccordian(!jackpotAccordian);
           }}
