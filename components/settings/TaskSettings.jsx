@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Button, DataTable, List, Text, TextInput } from "react-native-paper";
 import { uiStyles } from "../../css/styles";
-export default function TaskSettings({ data, setReload } = props) {
+export default function TaskSettings({ storeData, data, setReload } = props) {
   const [textDemarr, setTextDemarr] = useState("");
   const [numberDemarr, setNumberDemarr] = useState(null);
 

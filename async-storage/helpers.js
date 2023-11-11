@@ -213,21 +213,12 @@ storeDataDemarr({
 });
 
 storeDataMoney({
+  balance: 0,
   transactions: [
-    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
-    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
-    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
-    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
-    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
-    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
-    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
-    { type: "expense", value: 10, key: 1, description: "lost 10 bucks" },
-    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
-    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
-    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
-    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
-    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
-    { type: "credit", value: 20, key: 2, description: "found 20 bucks" },
+    { type: "expense", value: 10, key: 1, month: "January", description: "lost 10 bucks" },
+    { type: "credit", value: 10, key: 2, month: "January", description: "lost 10 bucks" },
+    { type: "expense", value: 10, key: 3, month: "February", description: "lost 10 asdasdbucks" },
+    { type: "credit", value: 10, key: 4, month: "February", description: "lost 10 buckasdasdasdasdasdasdasdasdasdasds" },
   ]
 })
 export { getDataMoney, storeDataMoney, storeDataDraigan, storeDataDemarr, getDataDraigan, getDataDemarr };
