@@ -16,9 +16,11 @@ const MoneyDataTable = () => {
   const [balance, setBalance] = useState();
   const [spent, setSpent] = useState(20);
   const [recieved, setRecieved] = useState(100)
-  const [month, setMonth] = useState(moment().format("MMM"))
+  const [month, setMonth] = useState(moment().format("MMMM"))
   let from;
   let to;
+  let monthData;
+
 
   const [data, setData] = useState(null);
 
@@ -30,6 +32,8 @@ const MoneyDataTable = () => {
   }
 
   if (!loading) {
+    monthData = data.transactions.filter((item) => item.month === month)
+    console.log(monthData)
     from = page * itemsPerPage;
     to = Math.min((page + 1) * itemsPerPage, data.transactions.length);
 
@@ -62,7 +66,7 @@ const MoneyDataTable = () => {
             <DataTable.Title >Description</DataTable.Title>
           </DataTable.Header>
 
-          {data.transactions.slice(from, to).map((item) => (
+          {monthData.slice(from, to).map((item) => (
             <DataTable.Row key={item.key}>
               <DataTable.Cell>{item.type}</DataTable.Cell>
               <DataTable.Cell >{item.value}</DataTable.Cell>

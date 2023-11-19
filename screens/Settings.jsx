@@ -1,4 +1,4 @@
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import {
   getDataDemarr,
   storeDataDemarr,
@@ -8,7 +8,7 @@ import {
 import { useState, useEffect } from "react";
 import MainSettings from "../components/settings/MainSettings.jsx";
 import { demarrStyles, draiganStyles } from "../css/styles";
-
+import { Text } from "react-native-paper";
 export default function Settings({ navigation }) {
   // Demarr States
   const [dataDemarr, setDataDemarr] = useState(null);
@@ -59,7 +59,7 @@ export default function Settings({ navigation }) {
   return (
     dataDraigan &&
     dataDemarr && (
-      <ScrollView>
+      <ScrollView >
         {/* Demarr */}
         <MainSettings
           setAccordianValue={setDemarrAccordianValue}
@@ -94,7 +94,6 @@ export default function Settings({ navigation }) {
           setReload={setReload}
           userStyle={draiganStyles}
         />
-
       </ScrollView>
     )
   );

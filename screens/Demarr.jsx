@@ -217,8 +217,8 @@ export default function Demarr({ navigation }) {
             style={{
               backgroundColor:
                 points >= requiredPoints &&
-                chorePoints >= choresRequired &&
-                morningRoutinePoints >= morningRoutinePointsRequired
+                  chorePoints >= choresRequired &&
+                  morningRoutinePoints >= morningRoutinePointsRequired
                   ? "red"
                   : "black",
               width: 150,

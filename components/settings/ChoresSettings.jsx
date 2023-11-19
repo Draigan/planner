@@ -60,10 +60,9 @@ const ChoresSettings = ({ data, setReload, storeData } = props) => {
       </View>
       {data.chores.map((item, index) => {
         return (
-          <View key={index + 7}>
+          <View >
             <Text variant="">{choreArrayMap[index]}</Text>
             {data.chores[index].list.map((dayItem, indexDay) => {
-              console.log(dayItem.task);
               return (
                 <TouchableOpacity
                   key={Math.random()}

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "planner",
+    "name": "Navi",
     "slug": "planner",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.draegan.planner"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b28a2a04-da3f-491b-adc0-6858e3e1b2f3"
+      }
     }
   }
 }
