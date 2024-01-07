@@ -60,7 +60,7 @@ const ChoresSettings = ({ data, setReload, storeData } = props) => {
       </View>
       {data.chores.map((item, index) => {
         return (
-          <View >
+          <View key={index}>
             <Text variant="">{choreArrayMap[index]}</Text>
             {data.chores[index].list.map((dayItem, indexDay) => {
               return (

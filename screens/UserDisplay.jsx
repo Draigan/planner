@@ -1,12 +1,17 @@
 import { Text, ScrollView, View } from "react-native";
 import { useEffect, useState } from "react";
-import { getDataDraigan, storeDataDraigan } from "../async-storage/helpers.js";
 import { Checkbox, Button, DataTable } from "react-native-paper";
 import moment from "moment";
-import { demarrStyles } from "../css/styles.jsx";
+import { draiganStyles, demarrStyles } from "../css/styles.jsx";
+import {
+  getDataDemarr,
+  storeDataDemarr,
+  storeDataDraigan,
+  getDataDraigan,
+} from "../async-storage/helpers";
 
-export default function Draigan({ navigation }) {
-  const storeData = storeDataDraigan;
+export default function UserDisplay({ navigation, route }) {
+  const [currentUser, setCurrentUser] = useState(null);
   const [data, setData] = useState(null);
   const [checked, setChecked] = useState(false);
   const [points, setPoints] = useState(0);
@@ -19,14 +24,26 @@ export default function Draigan({ navigation }) {
     useState();
   const [currentDay, setCurrentDay] = useState("");
   const [newDay, setNewDay] = useState(false);
-
   const day = moment().format("dddd");
-  // const day = "Thursday";
+  const { userName } = route.params;
+  let userStyles;
 
+  // Set Username
+  let storeDataUser;
+  let getDataUser;
+  if (userName === "demarr") {
+    storeDataUser = storeDataDemarr;
+    getDataUser = getDataDemarr;
+    userStyles = demarrStyles;
+
+  } else if (userName === "draigan") {
+    storeDataUser = storeDataDraigan;
+    getDataUser = getDataDraigan;
+    userStyles = draiganStyles;
+  }
   //Retrieve from sql-lite
   async function getData() {
-    const data = await getDataDraigan();
-    console.log(data)
+    const data = await getDataUser();
     setData(data);
     pointChecker(data);
     chorePointChecker(data);
@@ -42,7 +59,8 @@ export default function Draigan({ navigation }) {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       getData();
-      // checkForNewDay();
+      checkForNewDay();
+      console.log(data);
     });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
@@ -52,7 +70,8 @@ export default function Draigan({ navigation }) {
   // On Mount
   useEffect(() => {
     getData();
-    // checkForNewDay();
+    console.log(day);
+    checkForNewDay();
   }, []);
 
   function checkForNewDay() {
@@ -63,7 +82,12 @@ export default function Draigan({ navigation }) {
     }
   }
   function resetChecked() {
+    if (!data) return;
     data.tasks.forEach((item) => {
+      item.checked = false;
+    });
+
+    data.morningRoutine.forEach((item) => {
       item.checked = false;
     });
     data.chores.forEach((item) => {
@@ -71,7 +95,7 @@ export default function Draigan({ navigation }) {
       console.log(item);
     });
     setChorePoints(0);
-    storeData(data);
+    storeDataUser(data);
     setReload((prev) => !prev);
   }
 
@@ -121,7 +145,7 @@ export default function Draigan({ navigation }) {
       <View style={{ flex: 1 }}>
         <ScrollView>
           <DataTable>
-            <DataTable.Header style={demarrStyles.colorPrimary}>
+            <DataTable.Header style={userStyles.colorPrimary}>
               <DataTable.Title sortDirection="descending">
                 Morning Routine
               </DataTable.Title>
@@ -141,7 +165,7 @@ export default function Draigan({ navigation }) {
                     onPress={() => {
                       item.checked = !item.checked;
                       morningRoutinePointsChecker(data);
-                      storeData(data);
+                      storeDataUser(data);
                       console.log(item.checked);
                     }}
                   />
@@ -150,7 +174,7 @@ export default function Draigan({ navigation }) {
             ))}
           </DataTable>
           <DataTable>
-            <DataTable.Header style={demarrStyles.colorPrimary}>
+            <DataTable.Header style={userStyles.colorPrimary}>
               <DataTable.Title sortDirection="descending">
                 Daily Tasks
               </DataTable.Title>
@@ -169,7 +193,7 @@ export default function Draigan({ navigation }) {
                     onPress={() => {
                       item.checked = !item.checked;
                       pointChecker(data);
-                      storeData(data);
+                      storeDataUser(data);
                     }}
                   />
                 </DataTable.Cell>
@@ -177,7 +201,7 @@ export default function Draigan({ navigation }) {
             ))}
           </DataTable>
           <DataTable>
-            <DataTable.Header style={demarrStyles.colorPrimary}>
+            <DataTable.Header style={userStyles.colorPrimary}>
               <DataTable.Title sortDirection="descending">
                 Chores for {day}
               </DataTable.Title>
@@ -199,7 +223,7 @@ export default function Draigan({ navigation }) {
                       onPress={() => {
                         item.checked = !item.checked;
                         chorePointChecker(data);
-                        storeData(data);
+                        storeDataUser(data);
                         console.log(item.checked);
                       }}
                     />
@@ -221,7 +245,7 @@ export default function Draigan({ navigation }) {
                 points >= requiredPoints &&
                   chorePoints >= choresRequired &&
                   morningRoutinePoints >= morningRoutinePointsRequired
-                  ? "red"
+                  ? "green"
                   : "black",
               width: 150,
               margin: 5,

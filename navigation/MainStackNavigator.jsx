@@ -9,7 +9,7 @@ export default function MainStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="TabNavigator"
+        name="Home"
         component={TabNavigator}
         options={{
           headerShown: false,
